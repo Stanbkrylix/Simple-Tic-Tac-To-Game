@@ -9,6 +9,24 @@ const players = (name, symbol) => {
     return player;
 };
 
+const ui = (() => {
+    const startBtn = document.querySelector(".start-btn");
+    const playersModalOverlay = document.querySelector(
+        ".players-name-modal-overlay"
+    );
+    const startGameModal = document.querySelector(".startGame-modal-overlay");
+    const finishBtn = document.querySelector(".players-modal-btn");
+
+    startBtn.addEventListener("click", (e) => {
+        startGameModal.classList.add("hidden");
+        playersModalOverlay.classList.remove("hidden");
+    });
+    console.log(finishBtn);
+    finishBtn.addEventListener("click", (e) => {
+        playersModalOverlay.classList.add("hidden");
+    });
+})();
+
 const gameBoard = (() => {
     // const pSymbol = gameController.switchPlayer().symbol;
 
