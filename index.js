@@ -68,10 +68,11 @@ const ui = (() => {
         }
     });
 
-    return {};
+    return { grid };
 })();
 
-// console.log(emptyObject);
+console.log(ui.grid);
+
 const gameBoard = (() => {
     // const pSymbol = gameController.switchPlayer().symbol;
 
@@ -196,65 +197,3 @@ gameController.populateBoard(2, 2);
 
 console.log("================== gameBoard ====================");
 gameBoard.displayBoard();
-
-// winning combinations
-/*
-first combination
-top => (0,0) (0,1) (0,2)
-bottom => (2,0)(2,1)(2,2)
-left => (0,0)(1,0)(2,0)
-left dia => (0,0)(1,1)(2,2)
-right dia =>(0,2)(1,1)(2,0)
-*/
-
-// previous winning combination logic
-//if (
-//     (board[0][0] === "X" &&
-//         board[0][1] === "X" &&
-//         board[0][2] === "X") ||
-//     (board[2][0] === "X" &&
-//         board[2][1] === "X" &&
-//         board[2][2] === "X") ||
-//     (board[0][0] === "X" &&
-//         board[1][0] === "X" &&
-//         board[2][0] === "X") ||
-//     (board[0][0] === "X" &&
-//         board[1][1] === "X" &&
-//         board[2][2] === "X") ||
-//     (board[0][2] === "X" &&
-//         board[1][1] === "X" &&
-//         board[2][0] === "X") ||
-//     (board[0][1] === "X" &&
-//         board[1][1] === "X" &&
-//         board[2][1] === "X") ||
-//     (board[1][0] === "X" && board[1][1] === "X" && board[1][2] === "X")
-// ) {
-//     winnerFound = true;
-//     console.log("Player X is the winner " + winnerFound);
-// } else if (
-//     (board[0][0] === "O" &&
-//         board[0][1] === "O" &&
-//         board[0][2] === "O") ||
-//     (board[2][0] === "O" &&
-//         board[2][1] === "O" &&
-//         board[2][2] === "O") ||
-//     (board[0][0] === "O" &&
-//         board[1][0] === "O" &&
-//         board[2][0] === "O") ||
-//     (board[0][0] === "O" &&
-//         board[1][1] === "O" &&
-//         board[2][2] === "O") ||
-//     (board[0][2] === "O" &&
-//         board[1][1] === "O" &&
-//         board[2][0] === "O") ||
-//     (board[0][1] === "O" &&
-//         board[1][1] === "O" &&
-//         board[2][1] === "O") ||
-//     (board[1][0] === "O" && board[1][1] === "O" && board[1][2] === "O")
-// ) {
-//     winnerFound = true;
-//     console.log("Player O is the Winner");
-// } else {
-//     // console.log("no winner yet");
-//     return;
-// }
