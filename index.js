@@ -68,7 +68,13 @@ const ui = (() => {
         }
     });
 
-    return { grid };
+    return {
+        grid,
+        playerOneMarker,
+        playerTwoMarker,
+        playerOneName,
+        playerTwoName,
+    };
 })();
 
 console.log(ui.grid);
@@ -99,11 +105,12 @@ const gameController = (() => {
     const player2 = players("Daho", "O").symbol;
     let player = player1;
     let winnerFound = false;
+    const grid = ui.grid;
 
-    const switchPlayer = () => {
+    const switchPlayer = (playerOne = player1, playerTwo = player2) => {
         player = player === player1 ? (player = player2) : (player = player1);
 
-        console.log(player + "'s turn");
+        // console.log(player + "'s turn");
         return player;
     };
 
@@ -154,7 +161,7 @@ const gameController = (() => {
     };
 
     // creating 2d array
-    const populateBoard = (row, col) => {
+    const populateBoard = (row, col, currentPlayer) => {
         //
         console.log(winnerFound);
         if (winnerFound) {
@@ -164,7 +171,6 @@ const gameController = (() => {
         const board = gameBoard.getBoard();
 
         if (board[row][col] === "") {
-            const currentPlayer = switchPlayer();
             board[row][col] = currentPlayer;
             const winner = checkWinningCombination(board, currentPlayer);
             if (winner) {
@@ -176,24 +182,26 @@ const gameController = (() => {
         }
     };
 
+    grid.forEach((tile) => {
+        tile.addEventListener("click", (event) => {
+            const playerOneMarker = ui.playerOneMarker.textContent;
+            const playerTwoMarker = ui.playerTwoMarker.textContent;
+            const playerOneName = ui.playerOneName.textContent;
+            const playerTwoName = ui.playerTwoName.textContent;
+            const gridDataSetNum = Number(event.target.dataset.number);
+            const currentPlayer = switchPlayer(
+                playerOneMarker,
+                playerTwoMarker
+            );
+
+            populateBoard(gridDataSetNum, 0, currentPlayer);
+            console.log("================== gameBoard ====================");
+            gameBoard.displayBoard();
+        });
+    });
     return {
         populateBoard,
         switchPlayer,
     };
 })();
-gameController.populateBoard(1, 0);
-gameController.populateBoard(1, 0);
-gameController.populateBoard(1, 1);
-gameController.populateBoard(1, 1);
-gameController.populateBoard(1, 2);
-gameController.populateBoard(0, 2);
-gameController.populateBoard(0, 2);
-gameController.populateBoard(0, 2);
-gameController.populateBoard(1, 2);
-gameController.populateBoard(0, 0);
-gameController.populateBoard(2, 1);
-gameController.populateBoard(2, 0);
-gameController.populateBoard(2, 2);
-
-console.log("================== gameBoard ====================");
-gameBoard.displayBoard();
+// gameController.populateBoard(1, 0);
