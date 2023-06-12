@@ -193,8 +193,9 @@ const gameController = (() => {
                 playerOneMarker,
                 playerTwoMarker
             );
-
-            populateBoard(gridDataSetNum, 0, currentPlayer);
+            const row = Math.floor(gridDataSetNum / 3);
+            const col = gridDataSetNum % 3;
+            populateBoard(row, col, currentPlayer);
             console.log("================== gameBoard ====================");
             gameBoard.displayBoard();
         });
