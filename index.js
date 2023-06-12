@@ -10,23 +10,68 @@ const players = (name, symbol) => {
 };
 
 const ui = (() => {
-    const startBtn = document.querySelector(".start-btn");
     const playersModalOverlay = document.querySelector(
         ".players-name-modal-overlay"
     );
     const startGameModal = document.querySelector(".startGame-modal-overlay");
+    const playerOneInput = document.querySelector(".player1-input");
+    const playerTwoInput = document.querySelector(".player2-input");
+    const marker1 = document.querySelector(".marker1");
+    const marker2 = document.querySelector(".marker2");
+    const playerOneMarker = document.querySelector(".player-one-symbol");
+    const playerTwoMarker = document.querySelector(".player-two-symbol");
+    const playerOneName = document.querySelector(".player-name-one");
+    const playerTwoName = document.querySelector(".player-name-two");
     const finishBtn = document.querySelector(".players-modal-btn");
+    const startBtn = document.querySelector(".start-btn");
+    const grid = document.querySelectorAll(".grid");
 
     startBtn.addEventListener("click", (e) => {
         startGameModal.classList.add("hidden");
         playersModalOverlay.classList.remove("hidden");
     });
-    console.log(finishBtn);
+
     finishBtn.addEventListener("click", (e) => {
-        playersModalOverlay.classList.add("hidden");
+        const oneInput = playerOneInput.value;
+        const twoInput = playerTwoInput.value;
+        const XorO1 = marker1.value;
+        const XorO2 = marker2.value;
+        const upperXorO1 = XorO1.toUpperCase();
+        const upperXorO2 = XorO2.toUpperCase();
+
+        if (
+            oneInput === "" ||
+            twoInput === "" ||
+            XorO1 === "" ||
+            XorO2 === ""
+        ) {
+            alert("You must fill all available input field value");
+        } else if (
+            (upperXorO1 === "X" && upperXorO2 === "O") ||
+            (upperXorO1 === "O" && upperXorO2 === "X")
+        ) {
+            console.log(upperXorO1, upperXorO2);
+            playerOneName.textContent = oneInput;
+            playerTwoName.textContent = twoInput;
+            playerOneMarker.textContent = upperXorO1;
+            playerTwoMarker.textContent = upperXorO2;
+            playersModalOverlay.classList.add("hidden");
+        } else if (
+            upperXorO1 !== "X" ||
+            upperXorO1 !== "O" ||
+            upperXorO2 !== "X" ||
+            upperXorO2 !== "O"
+        ) {
+            alert("Markers must be either An 'X' or an 'O'");
+        } else {
+            alert("Markers cannot be the same");
+        }
     });
+
+    return {};
 })();
 
+// console.log(emptyObject);
 const gameBoard = (() => {
     // const pSymbol = gameController.switchPlayer().symbol;
 
