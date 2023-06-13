@@ -88,13 +88,20 @@ const gameBoard = (() => {
         ["", "", ""],
     ];
     const getBoard = () => gameBoardArray;
-    const displayBoard = () => {
+    const displayBoard = (grid) => {
         for (let i = 0; i < gameBoardArray.length; i++) {
             console.log(gameBoardArray[i]);
         }
     };
+    const updateGridUi = (grid, symbol, winnerFound) => {
+        if (winnerFound === false) {
+            const gridDiv = grid.target;
+            gridDiv.textContent = symbol;
+            console.log(symbol, winnerFound);
+        } else if (winnerFound === true) return;
+    };
 
-    return { getBoard, displayBoard };
+    return { getBoard, displayBoard, updateGridUi };
 })();
 
 console.log(gameBoard.getBoard());
@@ -172,6 +179,7 @@ const gameController = (() => {
 
         if (board[row][col] === "") {
             board[row][col] = currentPlayer;
+
             const winner = checkWinningCombination(board, currentPlayer);
             if (winner) {
                 winnerFound = true;
@@ -195,9 +203,10 @@ const gameController = (() => {
             );
             const row = Math.floor(gridDataSetNum / 3);
             const col = gridDataSetNum % 3;
-            populateBoard(row, col, currentPlayer);
+            populateBoard(row, col, currentPlayer, event);
             console.log("================== gameBoard ====================");
             gameBoard.displayBoard();
+            gameBoard.updateGridUi(event, currentPlayer, winnerFound);
         });
     });
     return {
