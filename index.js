@@ -119,26 +119,23 @@ console.log(gameBoard.getBoard());
 gameBoard.displayBoard();
 
 const gameController = (() => {
-    // const player1 = players("Stanley", "X").symbol;
-    // const player2 = players("Daho", "O").symbol;
+    const playerOneUnderline = ui.playerOneUnderline;
+    const playerTwoUnderline = ui.playerTwoUnderline;
     let player;
     let winnerFound = false;
     const grid = ui.grid;
 
     const switchPlayer = (playerOne, playerTwo) => {
-        // console.log(playerOneUnderline, playerTwoUnderline);
-        // player = player;
-
         if (player === playerOne) {
             player = playerTwo;
-            // playerOneUnderline.classList.remove("underLine");
-            // playerTwoUnderline.classList.add("underLine");
+            playerTwoUnderline.classList.remove("underLine");
+            playerOneUnderline.classList.add("underLine");
         } else if (player === playerTwo) {
-            // playerTwoUnderline.classList.remove("underLine");
-            // playerOneUnderline.classList.add("underLine");
+            playerOneUnderline.classList.remove("underLine");
+            playerTwoUnderline.classList.add("underLine");
             player = playerOne;
         }
-        // console.log(player + "'s turn");
+
         return player;
     };
 
