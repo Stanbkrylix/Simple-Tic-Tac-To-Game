@@ -25,6 +25,12 @@ const ui = (() => {
     const finishBtn = document.querySelector(".players-modal-btn");
     const startBtn = document.querySelector(".start-btn");
     const grid = document.querySelectorAll(".grid");
+    const playerOneUnderline = document.querySelector(".player-one");
+    const playerTwoUnderline = document.querySelector(".player-two");
+
+    const PlayAgainBtn = document.querySelector(".play-again-btn");
+    const winner = document.querySelector(".theWinner");
+    const gameOverOverlay = document.querySelector(".game-over-modal-overlay");
 
     startBtn.addEventListener("click", (e) => {
         startGameModal.classList.add("hidden");
@@ -74,6 +80,11 @@ const ui = (() => {
         playerTwoMarker,
         playerOneName,
         playerTwoName,
+        playerOneUnderline,
+        playerTwoUnderline,
+        PlayAgainBtn,
+        winner,
+        gameOverOverlay,
     };
 })();
 
@@ -94,11 +105,11 @@ const gameBoard = (() => {
         }
     };
     const updateGridUi = (grid, symbol, winnerFound) => {
-        if (winnerFound === false) {
-            const gridDiv = grid.target;
-            gridDiv.textContent = symbol;
-            console.log(symbol, winnerFound);
-        } else if (winnerFound === true) return;
+        const gridDiv = grid.target;
+
+        gridDiv.textContent = symbol;
+        console.log(symbol, winnerFound);
+        if (winnerFound) return;
     };
 
     return { getBoard, displayBoard, updateGridUi };
@@ -108,15 +119,25 @@ console.log(gameBoard.getBoard());
 gameBoard.displayBoard();
 
 const gameController = (() => {
-    const player1 = players("Stanley", "X").symbol;
-    const player2 = players("Daho", "O").symbol;
-    let player = player1;
+    // const player1 = players("Stanley", "X").symbol;
+    // const player2 = players("Daho", "O").symbol;
+    let player;
     let winnerFound = false;
     const grid = ui.grid;
 
-    const switchPlayer = (playerOne = player1, playerTwo = player2) => {
-        player = player === player1 ? (player = player2) : (player = player1);
+    const switchPlayer = (playerOne, playerTwo) => {
+        // console.log(playerOneUnderline, playerTwoUnderline);
+        // player = player;
 
+        if (player === playerOne) {
+            player = playerTwo;
+            // playerOneUnderline.classList.remove("underLine");
+            // playerTwoUnderline.classList.add("underLine");
+        } else if (player === playerTwo) {
+            // playerTwoUnderline.classList.remove("underLine");
+            // playerOneUnderline.classList.add("underLine");
+            player = playerOne;
+        }
         // console.log(player + "'s turn");
         return player;
     };
@@ -197,13 +218,19 @@ const gameController = (() => {
             const playerOneName = ui.playerOneName.textContent;
             const playerTwoName = ui.playerTwoName.textContent;
             const gridDataSetNum = Number(event.target.dataset.number);
+
+            if (!player) {
+                player = playerOneMarker;
+            }
+
             const currentPlayer = switchPlayer(
                 playerOneMarker,
                 playerTwoMarker
             );
+
             const row = Math.floor(gridDataSetNum / 3);
             const col = gridDataSetNum % 3;
-            populateBoard(row, col, currentPlayer, event);
+            populateBoard(row, col, currentPlayer);
             console.log("================== gameBoard ====================");
             gameBoard.displayBoard();
             gameBoard.updateGridUi(event, currentPlayer, winnerFound);
