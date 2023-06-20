@@ -5,12 +5,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* height: 1000px; */
 }
 .startGame-modal-overlay {
-    height: 100vh;
+    height: 100%;
     position: fixed;
-    /* top: 0;
-    left: 0; */
     background-color: rgb(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -34,21 +33,18 @@ body {
 }
 .players-name-modal-overlay {
     position: fixed;
-    /* top: 0;
-    left: 0; */
     background-color: rgb(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     width: 1200px;
-    height: 100vh;
+    height: 100%;
     z-index: 1;
 }
 .players-name-input-section,
 .players-marker-input-section {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
 }
 .players-name-input {
     width: 60%;
@@ -70,14 +66,12 @@ body {
 }
 .game-over-modal-overlay {
     position: fixed;
-    /* top: 0;
-    left: 0; */
     background-color: rgb(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     width: 1200px;
-    height: 100vh;
+    height: 100%;
 }
 .game-over-modal {
     position: relative;
