@@ -1,13 +1,13 @@
 "use strict";
 
-const players = (name, symbol) => {
-    const player = {
-        name,
-        symbol,
-    };
+// const players = (name, symbol) => {
+//     const player = {
+//         name,
+//         symbol,
+//     };
 
-    return player;
-};
+//     return player;
+// };
 
 const ui = (() => {
     const playersModalOverlay = document.querySelector(
@@ -38,15 +38,6 @@ const ui = (() => {
         startGameModal.classList.add("hidden");
         playersModalOverlay.classList.remove("hidden");
     });
-    // const gridObject = () => {
-    //     let emtyArray = [];
-    //     grid.forEach((tile) => {
-    //         emtyArray.push(tile);
-    //         // console.log([tile]);
-    //     });
-    //     console.log({ emtyArray });
-    // };
-    // gridObject();
 
     finishBtn.addEventListener("click", (e) => {
         const oneInput = playerOneInput.value;
@@ -67,7 +58,7 @@ const ui = (() => {
             (upperXorO1 === "X" && upperXorO2 === "O") ||
             (upperXorO1 === "O" && upperXorO2 === "X")
         ) {
-            console.log(upperXorO1, upperXorO2);
+            // console.log(upperXorO1, upperXorO2);
             playerOneName.textContent = oneInput;
             playerTwoName.textContent = twoInput;
             playerOneMarker.textContent = upperXorO1;
@@ -98,6 +89,7 @@ const ui = (() => {
         playerOneUnderline.classList.remove("underLine");
         playerTwoUnderline.classList.remove("underLine");
     };
+
     return {
         grid,
         playerOneMarker,
@@ -115,32 +107,25 @@ const ui = (() => {
     };
 })();
 
-console.log(ui.grid);
-
 const gameBoard = (() => {
-    // const pSymbol = gameController.switchPlayer().symbol;
-
     let gameBoardArray = [
         ["", "", ""],
         ["", "", ""],
         ["", "", ""],
     ];
     const getBoard = () => gameBoardArray;
-    const displayBoard = (grid) => {
+
+    const displayBoard = () => {
         for (let i = 0; i < gameBoardArray.length; i++) {
             console.log(gameBoardArray[i]);
         }
     };
 
-    const updateGridUi = (grid, symbol, winnerFound) => {
+    const updateGridUi = (grid, symbol) => {
         const gridDiv = grid.target;
-
         gridDiv.textContent = symbol;
-        console.log(symbol, winnerFound);
-        if (winnerFound) {
-            console.log(gridDiv);
-        }
     };
+
     const resetBoard = () => {
         const resetBoardArray = getBoard();
         for (let i = 0; i < resetBoardArray.length; i++) {
@@ -148,15 +133,10 @@ const gameBoard = (() => {
                 resetBoardArray[i][j] = "";
             }
         }
-        // console.log(resetBoardArray);
-        displayBoard();
     };
 
     return { getBoard, displayBoard, updateGridUi, resetBoard };
 })();
-
-console.log(gameBoard.getBoard());
-gameBoard.displayBoard();
 
 const gameController = (() => {
     const playerOneUnderline = ui.playerOneUnderline;
@@ -239,6 +219,7 @@ const gameController = (() => {
         return { marker1, marker2, player1Name, player2Name, emptyArray };
     };
 
+    // to highlight the winner;
     const toShowSideOfWinner = (
         nameOfWinner,
         dWinner,
@@ -250,7 +231,6 @@ const gameController = (() => {
     ) => {
         pOneUline.classList.remove("underLine");
         pTwoUline.classList.remove("underLine");
-        // winnersName.textContent = "Player " + winner + " is the winner";
 
         // to link winner and corresponding side
         if (
@@ -286,7 +266,7 @@ const gameController = (() => {
         const play2Grid = dWinner.emptyArray[1];
 
         const board = gameBoard.getBoard();
-        console.log(winnerFound);
+        // console.log(winnerFound);
 
         if (board[row][col] === "") {
             board[row][col] = currentPlayer;
@@ -341,28 +321,29 @@ const gameController = (() => {
                 const row = Math.floor(gridDataSetNum / 3);
                 const col = gridDataSetNum % 3;
                 populateBoard(row, col, currentPlayer, dWinner);
-                console.log(
-                    "================== gameBoard ===================="
-                );
                 gameBoard.displayBoard();
                 gameBoard.updateGridUi(event, currentPlayer, winnerFound);
             });
         });
     };
+
     const resetGridUi = () => {
         grid.forEach((tile) => {
             tile.textContent = "";
         });
     };
+
     const resetWinnerFound = () => {
         winnerFound = false;
     };
+
     const resetPlayersColors = () => {
         player1Container.style.backgroundColor = "white";
         player2Container.style.backgroundColor = "white";
         player1Container.style.color = "black";
         player2Container.style.color = "black";
     };
+
     const resetGame = () => {
         const playAgainBtn = ui.playAgainBtn;
         const gameOverOverlay = ui.gameOverOverlay;
