@@ -8,87 +8,98 @@
         <title>Document</title>
     </head>
     <body>
-        <div class="startGame-modal-overlay">
-            <div class="startGame-modal">
-                <p>Click The Button below to play</p>
-                <button class="start-btn">Start Game</button>
-            </div>
-        </div>
-        <div class="hidden players-name-modal-overlay">
-            <div class="both-players-modal">
-                <div class="players-modal-p-div">
-                    <p class="players modal-p">
-                        Please enter the players name and markers
-                    </p>
+        <div class="wrap-container">
+            <div class="startGame-modal-overlay">
+                <div class="startGame-modal">
+                    <p>Click The Button below to play</p>
+                    <button class="start-btn">Start Game</button>
                 </div>
-
-                <div class="both-players-wrap">
-                    <div class="player-one-modal">
-                        <div class="players-name-input-section">
-                            <label for="player-name">Player one's name</label>
-                            <input
-                                class="player1-input players-name-input"
-                                type="text"
-                            />
-                        </div>
-                        <div class="players-marker-input-section">
-                            <label for="">Choose a X or O as your marker</label>
-                            <input class="marker1 XorO" type="text" />
-                        </div>
+            </div>
+            <div class="hidden players-name-modal-overlay">
+                <div class="both-players-modal">
+                    <div class="players-modal-p-div">
+                        <p class="players modal-p">
+                            Please enter the players name and markers
+                        </p>
                     </div>
 
-                    <div class="player-two-modal">
-                        <div class="players-name-input-section">
-                            <label for="player-name">Player two's name</label>
-                            <input
-                                class="player2-input players-name-input"
-                                type="text"
-                            />
+                    <div class="both-players-wrap">
+                        <div class="player-one-modal">
+                            <div class="players-name-input-section">
+                                <label for="player-name"
+                                    >Player one's name</label
+                                >
+                                <input
+                                    class="player1-input players-name-input"
+                                    type="text"
+                                />
+                            </div>
+                            <div class="players-marker-input-section">
+                                <label for=""
+                                    >Choose a X or O as your marker</label
+                                >
+                                <input class="marker1 XorO" type="text" />
+                            </div>
                         </div>
-                        <div class="players-marker-input-section">
-                            <label for="">Choose a X or O as your marker</label>
-                            <input class="marker2 XorO" type="text" />
+
+                        <div class="player-two-modal">
+                            <div class="players-name-input-section">
+                                <label for="player-name"
+                                    >Player two's name</label
+                                >
+                                <input
+                                    class="player2-input players-name-input"
+                                    type="text"
+                                />
+                            </div>
+                            <div class="players-marker-input-section">
+                                <label for=""
+                                    >Choose a X or O as your marker</label
+                                >
+                                <input class="marker2 XorO" type="text" />
+                            </div>
                         </div>
                     </div>
+                    <div class="players-modal-btn-div">
+                        <button class="players-modal-btn">Finish</button>
+                    </div>
                 </div>
-                <div class="players-modal-btn-div">
-                    <button class="players-modal-btn">Finish</button>
+            </div>
+
+            <div class="hidden game-over-modal-overlay">
+                <div class="game-over-modal">
+                    <p class="theWinner">The Winner</p>
+                    <button class="play-again-btn">Play Again</button>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="players player-1-container">
+                    <p class="player-one">Player one</p>
+                    <div class="player-name-one player-name">Stanley</div>
+                    <p>Player's Marker</p>
+                    <div class="player-one-symbol player-symbol"></div>
+                </div>
+                <div class="game-container">
+                    <div class="grid" data-number="0"></div>
+                    <div class="grid" data-number="1"></div>
+                    <div class="grid" data-number="2"></div>
+                    <div class="grid" data-number="3"></div>
+                    <div class="grid" data-number="4"></div>
+                    <div class="grid" data-number="5"></div>
+                    <div class="grid" data-number="6"></div>
+                    <div class="grid" data-number="7"></div>
+                    <div class="grid" data-number="8"></div>
+                </div>
+                <div class="players player-2-container">
+                    <p class="player-two">Player two</p>
+                    <div class="player-name-two player-name">Daho</div>
+                    <p>Player's Marker</p>
+                    <div class="player-two-symbol player-symbol"></div>
                 </div>
             </div>
         </div>
 
-        <div class="hidden game-over-modal-overlay">
-            <div class="game-over-modal">
-                <p class="theWinner">The Winner</p>
-                <button class="play-again-btn">Play Again</button>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="players player-1-container">
-                <p class="player-one">Player one</p>
-                <div class="player-name-one player-name">Stanley</div>
-                <p>Player's Marker</p>
-                <div class="player-one-symbol player-symbol"></div>
-            </div>
-            <div class="game-container">
-                <div class="grid" data-number="0"></div>
-                <div class="grid" data-number="1"></div>
-                <div class="grid" data-number="2"></div>
-                <div class="grid" data-number="3"></div>
-                <div class="grid" data-number="4"></div>
-                <div class="grid" data-number="5"></div>
-                <div class="grid" data-number="6"></div>
-                <div class="grid" data-number="7"></div>
-                <div class="grid" data-number="8"></div>
-            </div>
-            <div class="players player-2-container">
-                <p class="player-two">Player two</p>
-                <div class="player-name-two player-name">Daho</div>
-                <p>Player's Marker</p>
-                <div class="player-two-symbol player-symbol"></div>
-            </div>
-        </div>
         <script src="index.js"></script>
     </body>
 </html>

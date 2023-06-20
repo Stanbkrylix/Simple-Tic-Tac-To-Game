@@ -131,12 +131,15 @@ const gameBoard = (() => {
             console.log(gameBoardArray[i]);
         }
     };
+
     const updateGridUi = (grid, symbol, winnerFound) => {
         const gridDiv = grid.target;
 
         gridDiv.textContent = symbol;
         console.log(symbol, winnerFound);
-        if (winnerFound) return;
+        if (winnerFound) {
+            console.log(gridDiv);
+        }
     };
     const resetBoard = () => {
         const resetBoardArray = getBoard();
@@ -291,6 +294,7 @@ const gameController = (() => {
             const winner = checkWinningCombination(board, currentPlayer);
             if (winner) {
                 winnerFound = true;
+                console.log(board);
                 gameOverOverlay.classList.remove("hidden");
                 toShowSideOfWinner(
                     winnersName,
