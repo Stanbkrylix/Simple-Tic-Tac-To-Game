@@ -74,6 +74,19 @@ const ui = (() => {
         }
     });
 
+    const resetStartModal = () => {
+        startGameModal.classList.remove("hidden");
+        playerOneInput.value = "";
+        playerTwoInput.value = "";
+        marker1.value = "";
+        marker2.value = "";
+        playerOneName.textContent = "";
+        playerTwoName.textContent = "";
+        playerOneMarker.textContent = "";
+        playerTwoMarker.textContent = "";
+        playerOneUnderline.classList.remove("underLine");
+        playerTwoUnderline.classList.remove("underLine");
+    };
     return {
         grid,
         playerOneMarker,
@@ -85,6 +98,7 @@ const ui = (() => {
         playAgainBtn,
         winner,
         gameOverOverlay,
+        resetStartModal,
     };
 })();
 
@@ -136,14 +150,14 @@ const gameController = (() => {
     const grid = ui.grid;
 
     const switchPlayer = (playerOne, playerTwo) => {
-        if (player === playerOne) {
-            player = playerTwo;
-            playerTwoUnderline.classList.remove("underLine");
-            playerOneUnderline.classList.add("underLine");
-        } else if (player === playerTwo) {
+        if (player === playerTwo) {
+            player = playerOne;
             playerOneUnderline.classList.remove("underLine");
             playerTwoUnderline.classList.add("underLine");
-            player = playerOne;
+        } else if (player === playerOne) {
+            playerTwoUnderline.classList.remove("underLine");
+            playerOneUnderline.classList.add("underLine");
+            player = playerTwo;
         }
 
         return player;
@@ -232,7 +246,7 @@ const gameController = (() => {
                 const gridDataSetNum = Number(event.target.dataset.number);
 
                 if (!player) {
-                    player = playerOneMarker;
+                    player = playerTwoMarker;
                 }
 
                 const currentPlayer = switchPlayer(
@@ -270,6 +284,7 @@ const gameController = (() => {
             resetGridUi();
             gameOverOverlay.classList.add("hidden");
             player = undefined;
+            ui.resetStartModal();
         });
     };
 
