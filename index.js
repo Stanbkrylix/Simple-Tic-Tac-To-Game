@@ -237,16 +237,14 @@ const gameController = (() => {
             (dWinner.marker1 === "X" && winner === "X") ||
             (dWinner.marker1 === "O" && winner === "O")
         ) {
-            nameOfWinner.textContent =
-                "Player " + dWinner.player1Name + " is the winner";
+            nameOfWinner.textContent = dWinner.player1Name + " is the winner";
             play1Grid.style.backgroundColor = "rgb(0, 110, 253)";
             play1Grid.style.color = "white";
         } else if (
             (dWinner.marker2 === "X" && winner === "X") ||
             (dWinner.marker2 === "O" && winner === "O")
         ) {
-            nameOfWinner.textContent =
-                "Player " + dWinner.player2Name + " is the winner";
+            nameOfWinner.textContent = dWinner.player2Name + " is the winner";
             play2Grid.style.backgroundColor = "rgb(0, 110, 253)";
             play2Grid.style.color = "white";
         }
