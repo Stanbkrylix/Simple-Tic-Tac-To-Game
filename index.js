@@ -158,6 +158,8 @@ gameBoard.displayBoard();
 const gameController = (() => {
     const playerOneUnderline = ui.playerOneUnderline;
     const playerTwoUnderline = ui.playerTwoUnderline;
+    const player1Container = ui.player1Container;
+    const player2Container = ui.player2Container;
     let player;
     let winnerFound = false;
     const grid = ui.grid;
@@ -233,9 +235,45 @@ const gameController = (() => {
         let emptyArray = [player1NameUi, player2NameUi];
         return { marker1, marker2, player1Name, player2Name, emptyArray };
     };
-    // creating 2d array
 
+    const toShowSideOfWinner = (
+        nameOfWinner,
+        dWinner,
+        winner,
+        pOneUline,
+        pTwoUline,
+        play1Grid,
+        play2Grid
+    ) => {
+        pOneUline.classList.remove("underLine");
+        pTwoUline.classList.remove("underLine");
+        // winnersName.textContent = "Player " + winner + " is the winner";
+
+        // to link winner and corresponding side
+        if (
+            (dWinner.marker1 === "X" && winner === "X") ||
+            (dWinner.marker1 === "O" && winner === "O")
+        ) {
+            nameOfWinner.textContent =
+                "Player " + dWinner.player1Name + " is the winner";
+            play1Grid.style.backgroundColor = "rgb(0, 110, 253)";
+            play1Grid.style.color = "white";
+        } else if (
+            (dWinner.marker2 === "X" && winner === "X") ||
+            (dWinner.marker2 === "O" && winner === "O")
+        ) {
+            nameOfWinner.textContent =
+                "Player " + dWinner.player2Name + " is the winner";
+            play2Grid.style.backgroundColor = "rgb(0, 110, 253)";
+            play2Grid.style.color = "white";
+        }
+    };
+
+    // populating 2d Array
     const populateBoard = (row, col, currentPlayer, dWinner) => {
+        if (winnerFound) {
+            return;
+        }
         //
         const gameOverOverlay = ui.gameOverOverlay;
         const winnersName = ui.winner;
@@ -244,12 +282,8 @@ const gameController = (() => {
         const play1Grid = dWinner.emptyArray[0];
         const play2Grid = dWinner.emptyArray[1];
 
-        console.log(winnerFound);
-        if (winnerFound) {
-            return;
-        }
-
         const board = gameBoard.getBoard();
+        console.log(winnerFound);
 
         if (board[row][col] === "") {
             board[row][col] = currentPlayer;
@@ -258,26 +292,15 @@ const gameController = (() => {
             if (winner) {
                 winnerFound = true;
                 gameOverOverlay.classList.remove("hidden");
-                // winnersName.textContent = "Player " + winner + " is the winner";
-                console.log(play1Grid, play2Grid);
-
-                if (
-                    (dWinner.marker1 === "X" && winner === "X") ||
-                    (dWinner.marker1 === "O" && winner === "O")
-                ) {
-                    winnersName.textContent =
-                        "Player " + dWinner.player1Name + " is the winner";
-                    play1Grid.style.backgroundColor = "Green";
-                    play1Grid.style.color = "white";
-                } else if (
-                    (dWinner.marker2 === "X" && winner === "X") ||
-                    (dWinner.marker2 === "O" && winner === "O")
-                ) {
-                    winnersName.textContent =
-                        "Player " + dWinner.player2Name + " is the winner";
-                    play2Grid.style.backgroundColor = "Green";
-                    play2Grid.style.color = "white";
-                }
+                toShowSideOfWinner(
+                    winnersName,
+                    dWinner,
+                    winner,
+                    playerOneUnderline,
+                    playerTwoUnderline,
+                    play1Grid,
+                    play2Grid
+                );
             }
         } else {
             return;
@@ -291,11 +314,8 @@ const gameController = (() => {
                 const playerTwoMarker = ui.playerTwoMarker.textContent;
                 const playerOneName = ui.playerOneName.textContent;
                 const playerTwoName = ui.playerTwoName.textContent;
-                const player1NameUi = ui.playerOneName;
-                const player2NameUi = ui.playerTwoName;
                 const gridDataSetNum = Number(event.target.dataset.number);
-                const player1Container = ui.player1Container;
-                const player2Container = ui.player2Container;
+
                 const dWinner = determineWinner(
                     playerOneMarker,
                     playerTwoMarker,
@@ -314,7 +334,6 @@ const gameController = (() => {
                     playerTwoMarker
                 );
 
-                // console.log(playerOneName, playerTwoName);
                 const row = Math.floor(gridDataSetNum / 3);
                 const col = gridDataSetNum % 3;
                 populateBoard(row, col, currentPlayer, dWinner);
@@ -334,10 +353,16 @@ const gameController = (() => {
     const resetWinnerFound = () => {
         winnerFound = false;
     };
-
+    const resetPlayersColors = () => {
+        player1Container.style.backgroundColor = "white";
+        player2Container.style.backgroundColor = "white";
+        player1Container.style.color = "black";
+        player2Container.style.color = "black";
+    };
     const resetGame = () => {
         const playAgainBtn = ui.playAgainBtn;
         const gameOverOverlay = ui.gameOverOverlay;
+
         playAgainBtn.addEventListener("click", () => {
             gameBoard.resetBoard();
             resetWinnerFound();
@@ -345,12 +370,11 @@ const gameController = (() => {
             gameOverOverlay.classList.add("hidden");
             player = undefined;
             ui.resetStartModal();
+            resetPlayersColors();
         });
     };
 
     return {
-        populateBoard,
-        switchPlayer,
         playGame,
         resetGame,
     };
