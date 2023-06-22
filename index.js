@@ -237,14 +237,14 @@ const gameController = (() => {
             (dWinner.marker1 === "X" && winner === "X") ||
             (dWinner.marker1 === "O" && winner === "O")
         ) {
-            nameOfWinner.textContent = dWinner.player1Name + " is the winner";
+            nameOfWinner.textContent = `${dWinner.player1Name} the "${winner}" player is the winner`;
             play1Grid.style.backgroundColor = "rgb(0, 110, 253)";
             play1Grid.style.color = "white";
         } else if (
             (dWinner.marker2 === "X" && winner === "X") ||
             (dWinner.marker2 === "O" && winner === "O")
         ) {
-            nameOfWinner.textContent = dWinner.player2Name + " is the winner";
+            nameOfWinner.textContent = `${dWinner.player2Name} the "${winner}" player is the winner`;
             play2Grid.style.backgroundColor = "rgb(0, 110, 253)";
             play2Grid.style.color = "white";
         }
@@ -306,7 +306,7 @@ const gameController = (() => {
                     player1Container,
                     player2Container
                 );
-
+                if (event.target.textContent !== "") return;
                 if (!player) {
                     player = playerTwoMarker;
                 }
@@ -321,6 +321,7 @@ const gameController = (() => {
                 populateBoard(row, col, currentPlayer, dWinner);
                 gameBoard.displayBoard();
                 gameBoard.updateGridUi(event, currentPlayer, winnerFound);
+                allBoardTileArefille();
             });
         });
     };
@@ -342,7 +343,7 @@ const gameController = (() => {
         player2Container.style.color = "black";
     };
 
-    const resetGame = () => {
+    function resetGame() {
         const playAgainBtn = ui.playAgainBtn;
         const gameOverOverlay = ui.gameOverOverlay;
 
@@ -355,7 +356,29 @@ const gameController = (() => {
             ui.resetStartModal();
             resetPlayersColors();
         });
-    };
+    }
+    // tie functionality
+    function allBoardTileArefille() {
+        let counter = 0;
+        const winnersName = ui.winner;
+        const gameOverOverlay = ui.gameOverOverlay;
+        const board = gameBoard.getBoard();
+
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                if (board[i][j] !== "") {
+                    counter++;
+                }
+
+                if (counter === 9) {
+                    counter = 0;
+                    gameOverOverlay.classList.remove("hidden");
+                    winnersName.textContent =
+                        "Round over no winners, play again!";
+                }
+            }
+        }
+    }
 
     return {
         playGame,
