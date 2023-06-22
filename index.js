@@ -1,14 +1,5 @@
 "use strict";
 
-// const players = (name, symbol) => {
-//     const player = {
-//         name,
-//         symbol,
-//     };
-
-//     return player;
-// };
-
 const ui = (() => {
     const playersModalOverlay = document.querySelector(
         ".players-name-modal-overlay"
