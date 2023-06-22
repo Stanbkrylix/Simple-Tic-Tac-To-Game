@@ -198,7 +198,7 @@ const gameController = (() => {
         return null;
     };
 
-    const determineWinner = (
+    const toDisplayNameOfWinner = (
         marker1,
         marker2,
         player1Name,
@@ -289,7 +289,7 @@ const gameController = (() => {
                 const playerTwoName = ui.playerTwoName.textContent;
                 const gridDataSetNum = Number(event.target.dataset.number);
 
-                const dWinner = determineWinner(
+                const dWinner = toDisplayNameOfWinner(
                     playerOneMarker,
                     playerTwoMarker,
                     playerOneName,
@@ -312,7 +312,7 @@ const gameController = (() => {
                 populateBoard(row, col, currentPlayer, dWinner);
                 gameBoard.displayBoard();
                 gameBoard.updateGridUi(event, currentPlayer, winnerFound);
-                allBoardTileArefille();
+                tieGameFunctionality();
             });
         });
     };
@@ -334,7 +334,7 @@ const gameController = (() => {
         player2Container.style.color = "black";
     };
 
-    function resetGame() {
+    const resetGame = () => {
         const playAgainBtn = ui.playAgainBtn;
         const gameOverOverlay = ui.gameOverOverlay;
 
@@ -347,9 +347,9 @@ const gameController = (() => {
             ui.resetStartModal();
             resetPlayersColors();
         });
-    }
+    };
     // tie functionality
-    function allBoardTileArefille() {
+    function tieGameFunctionality() {
         let counter = 0;
         const winnersName = ui.winner;
         const gameOverOverlay = ui.gameOverOverlay;
@@ -366,6 +366,7 @@ const gameController = (() => {
                     gameOverOverlay.classList.remove("hidden");
                     winnersName.textContent =
                         "Round over no winners, play again!";
+                    resetPlayersColors();
                 }
             }
         }
